@@ -1,0 +1,11 @@
+---
+- name: Install NRPE packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - nagios-nrpe-server
+    - nagios-plugins
+  tags:
+    - installation

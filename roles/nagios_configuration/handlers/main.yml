@@ -1,0 +1,12 @@
+---
+- name: restart apache2
+  ansible.builtin.systemd:
+    enabled: true
+    name: apache2
+    state: restarted
+
+- name: restart nagios4
+  ansible.builtin.systemd:
+    enabled: true
+    name: nagios4
+    state: restarted

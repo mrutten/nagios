@@ -1,0 +1,5 @@
+---
+- import_playbook: nagios_installation.yml
+- import_playbook: nagios_configuration.yml
+- import_playbook: nrpe_installation.yml
+- import_playbook: nrpe_configuration.yml

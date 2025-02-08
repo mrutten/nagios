@@ -1,0 +1,7 @@
+---
+- name: NRPE installation
+  hosts: all
+  become: true
+  gather_facts: false
+  roles:
+    - nrpe_installation

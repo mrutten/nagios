@@ -1,0 +1,7 @@
+---
+- name: NRPE
+  hosts: all
+  become: true
+  gather_facts: false
+  roles:
+    - nrpe_configuration

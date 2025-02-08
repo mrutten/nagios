@@ -1,0 +1,85 @@
+---
+- name: Copy hostgroups
+  ansible.builtin.template:
+    src: hostgroups.cfg.j2
+    dest: /etc/nagios4/conf.d/hostgroups.cfg
+    force: true
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - restart nagios4
+
+- name: Copy hosts
+  ansible.builtin.template:
+    src: hosts.cfg.j2
+    dest: /etc/nagios4/conf.d/hosts.cfg
+    force: true
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - restart nagios4
+
+- name: Copy services
+  ansible.builtin.template:
+    src: services.cfg.j2
+    dest: /etc/nagios4/conf.d/services.cfg
+    force: true
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - restart nagios4
+
+- name: Set use_authentication to 1 in cgi.cfg
+  ansible.builtin.lineinfile:
+    path: /etc/nagios4/cgi.cfg
+    regexp: '^use_authentication='
+    line: 'use_authentication=1'
+    state: present
+    backup: yes
+  notify:
+    - restart nagios4
+
+- name: Enable Apache modules cgi, cgid, rewrite
+  ansible.builtin.apache2_module:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - cgi
+    - cgid
+    - rewrite
+  notify:
+    - restart apache2
+
+- name: Copy Nagios4 CGI conf
+  ansible.builtin.template:
+    src: nagios4-cgi.conf.j2
+    dest: /etc/apache2/conf-available/nagios4-cgi.conf
+    force: true
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - restart apache2
+
+- name: Copy htpasswd for Nagios admin
+  ansible.builtin.template:
+    src: htdigest.users.j2
+    dest: /etc/nagios4/htdigest.users
+    force: true
+    owner: nagios
+    group: www-data
+    mode: '0640'
+  notify:
+    - restart apache2
+
+- name: Start and enable nagios4
+  ansible.builtin.systemd:
+    enabled: true
+    name: nagios4
+    state: started
+  tags:
+    - systemd-service
+

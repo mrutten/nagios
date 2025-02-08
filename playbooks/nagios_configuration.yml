@@ -1,0 +1,7 @@
+---
+- name: Nagios configuration
+  hosts: monitoring
+  become: true
+  gather_facts: false
+  roles:
+    - nagios_configuration

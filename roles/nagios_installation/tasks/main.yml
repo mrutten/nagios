@@ -1,0 +1,13 @@
+---
+- name: Install Nagios packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - nagios4
+    - nagios4-common
+    - monitoring-plugins-contrib 
+    - nagios-nrpe-plugin
+  tags:
+    - installation
