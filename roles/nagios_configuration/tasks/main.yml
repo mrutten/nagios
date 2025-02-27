@@ -6,7 +6,7 @@
     force: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   notify:
     - restart nagios4
 
@@ -17,7 +17,7 @@
     force: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   notify:
     - restart nagios4
 
@@ -28,15 +28,15 @@
     force: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   notify:
     - restart nagios4
 
 - name: Set use_authentication to 1 in cgi.cfg
   ansible.builtin.lineinfile:
     path: /etc/nagios4/cgi.cfg
-    regexp: '^use_authentication='
-    line: 'use_authentication=1'
+    regexp: "^use_authentication="
+    line: "use_authentication=1"
     state: present
     backup: yes
   notify:
@@ -60,7 +60,7 @@
     force: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   notify:
     - restart apache2
 
@@ -71,15 +71,14 @@
     force: true
     owner: nagios
     group: www-data
-    mode: '0640'
+    mode: "0640"
   notify:
     - restart apache2
 
 - name: Start and enable nagios4
-  ansible.builtin.systemd:
+  ansible.builtin.servcei:
     enabled: true
     name: nagios4
     state: started
   tags:
-    - systemd-service
-
+    - service
