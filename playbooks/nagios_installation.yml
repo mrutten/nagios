@@ -1,6 +1,6 @@
 ---
 - name: Nagios installation
-  hosts: monitoring
+  hosts: nagios
   become: true
   gather_facts: false
   roles:
