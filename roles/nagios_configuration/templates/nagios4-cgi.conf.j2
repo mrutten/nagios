@@ -47,13 +47,13 @@ Alias /nagios4 /usr/share/nagios4/htdocs
     AllowOverride None
     Order allow,deny
     Allow from all
-    AuthName "Nagios Core"
-    AuthType Basic
-    AuthUserFile /etc/nagios4/htdigest.users
+    AuthName "{{ auth_name }}"
+    AuthType {{ auth_type }}
+    AuthUserFile {{ auth_user_file }}
     Require valid-user
     Require all denied
 </DirectoryMatch>
 
 <Directory /usr/share/nagios4/htdocs>
-    Options	+ExecCGI	
+    Options	+ExecCGI
 </Directory>

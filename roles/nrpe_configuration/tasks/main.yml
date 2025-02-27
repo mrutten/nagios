@@ -6,22 +6,22 @@
     force: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   notify:
     - restart nagios-nrpe-server
 
 - name: Start and enable nagios-nrpe-server
-  ansible.builtin.systemd:
+  ansible.builtin.service:
     enabled: true
     name: nagios-nrpe-server
     state: started
   tags:
-    - systemd-service
+    - service
 
 - name: Download Nagios check_mem plugin
   ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/justintime/nagios-plugins/refs/heads/master/check_mem/check_mem.pl"
     dest: "/usr/lib/nagios/plugins/check_mem"
-    mode: '0755'
+    mode: "0755"
   notify:
     - restart nagios-nrpe-server
