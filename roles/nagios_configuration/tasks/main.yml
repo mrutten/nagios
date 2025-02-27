@@ -76,7 +76,7 @@
     - restart apache2
 
 - name: Start and enable nagios4
-  ansible.builtin.servcei:
+  ansible.builtin.service:
     enabled: true
     name: nagios4
     state: started
